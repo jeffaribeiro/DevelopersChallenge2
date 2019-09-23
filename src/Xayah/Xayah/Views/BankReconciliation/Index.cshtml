@@ -1,0 +1,53 @@
+﻿@model IEnumerable<Xayah.Models.TransactionViewModel>
+
+@{
+    ViewData["Title"] = "My Transactions";
+}
+
+<h1>@ViewData["Title"]</h1>
+
+<hr />
+
+<a asp-action="ImportFiles"><input type="button" value="Import File(s)" class="btn-primary" /></a>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Bank Id</th>
+            <th>Account Number</th>
+            <th>Account Type</th>
+            <th>Type</th>
+            <th>DatePosted</th>
+            <th>Amount</th>
+            <th>Memo</th>
+        </tr>
+    </thead>
+    <tbody>
+        @for (var i = 0; i < Model.ToList().Count(); i++)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => Model.ToList()[i].BankId)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => Model.ToList()[i].AccountNumber)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => Model.ToList()[i].AccountType)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => Model.ToList()[i].Type)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => Model.ToList()[i].DatePosted)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => Model.ToList()[i].Amount)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => Model.ToList()[i].Memo)
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

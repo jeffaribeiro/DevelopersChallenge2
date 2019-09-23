@@ -1,0 +1,25 @@
+﻿@{
+    ViewData["Title"] = "Import File(s)";
+}
+
+<h1>@ViewData["Title"]</h1>
+<a asp-action="Index"><input type="button" value="<< Back" class="btn-default" /></a>
+
+<hr />
+
+<form asp-controller="BankReconciliation" asp-action="ImportedRegisters" method="post" enctype="multipart/form-data">
+    <div class="row">
+        <div class="col-md-12">
+            <input type="file" id="fUpload" name="files" multiple class="form-control" />
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12" style="padding-top:10px;">
+            <input type="submit" id="btnUpload" value="Upload" class="btn-primary" />
+        </div>
+    </div>
+</form>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial"); }
+}

@@ -1,0 +1,61 @@
+﻿@model IEnumerable<Xayah.Models.TransactionViewModel>
+
+@{
+    ViewData["Title"] = "Transactions Imported From File(s)";
+}
+
+<h1>@ViewData["Title"]</h1> 
+<a asp-action="ImportFiles"><input type="button" value="<< Back" class="btn-default" /></a>
+
+<hr />
+
+@using (Html.BeginForm("Save", "BankReconciliation", FormMethod.Post))
+{
+<div class="form-group">
+    <input type="submit" value="Save Data" class="btn-primary" />
+</div>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Bank Id</th>
+                <th>Account Number</th>
+                <th>Account Type</th>
+                <th>Type</th>
+                <th>DatePosted</th>
+                <th>Amount</th>
+                <th>Memo</th>
+            </tr>
+        </thead>
+        <tbody>
+            @{ var i = 0; }
+            @foreach (var transaction in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.TextBox("transactions[" + i + "].BankId", transaction.BankId, new { @readonly="readonly" })
+                    </td>
+                    <td>
+                        @Html.TextBox("transactions[" + i + "].AccountNumber", transaction.AccountNumber,new { @readonly="readonly" })
+                    </td>
+                    <td>
+                        @Html.TextBox("transactions[" + i + "].AccountType", transaction.AccountType,new { @readonly="readonly" })
+                    </td>
+                    <td>
+                        @Html.TextBox("transactions[" + i + "].Type", transaction.Type,new { @readonly="readonly" })
+                    </td>
+                    <td>
+                        @Html.TextBox("transactions[" + i + "].DatePosted", transaction.DatePosted,new { @readonly="readonly" })
+                    </td>
+                    <td>
+                        @Html.TextBox("transactions[" + i + "].Amount", transaction.Amount,new { @readonly="readonly" })
+                    </td>
+                    <td>
+                        @Html.TextBox("transactions[" + i + "].Memo", transaction.Memo,new { @readonly="readonly" })
+                    </td>
+                </tr>
+                i++;
+            }
+        </tbody>
+    </table>
+}
