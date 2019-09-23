@@ -56,23 +56,23 @@ namespace Xayah.Util
         private void FindTransactionsInFile()
         {
 
-            int indCursor = 0;
-            int ind = 0;
+            int indexCursorTransactions = 0;
+            int index = 0;
 
-            while (ind >= 0)
+            while (index >= 0)
             {
-                ind = OFXStream.IndexOf("<STMTTRN>", indCursor);
+                index = OFXStream.IndexOf("<STMTTRN>", indexCursorTransactions);
 
-                if (ind > 0)
+                if (index > 0)
                 {
                     OFXTransaction transaction =
-                        new OFXTransaction(this.GetTagValue("<TRNTYPE>", ind),
-                                           this.GetTagValue("<DTPOSTED>", ind),
-                                           this.GetTagValue("<TRNAMT>", ind),
-                                           this.GetTagValue("<MEMO>", ind));
+                        new OFXTransaction(this.GetTagValue("<TRNTYPE>", index),
+                                           this.GetTagValue("<DTPOSTED>", index),
+                                           this.GetTagValue("<TRNAMT>", index),
+                                           this.GetTagValue("<MEMO>", index));
 
                     this.OFXTransactions.Add(transaction);
-                    indCursor = ind + 1;
+                    indexCursorTransactions = index + 1;
                 }
 
             }
@@ -101,19 +101,16 @@ namespace Xayah.Util
             return transaction;
         }
 
-        private string GetTagValue(string elemento, int indice)
+        private string GetTagValue(string tag, int index)
         {
-            string resultado = null;
+            string value = null;
 
-            int ind = OFXStream.IndexOf(elemento, indice);
-            resultado = Regex.Split(OFXStream.Substring(ind + elemento.Length), "\r\n")[0];
-            return resultado.Trim();
+            int ind = OFXStream.IndexOf(tag, index);
+            value = Regex.Split(OFXStream.Substring(ind + tag.Length), "\r\n")[0];
+            return value.Trim();
         }
 
-        private string GetTagValue(string elemento)
-        {
-            return GetTagValue(elemento, 0);
-        }
+        private string GetTagValue(string tag) => GetTagValue(tag, 0);
 
         #endregion
 
